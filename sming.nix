@@ -5,11 +5,11 @@ let
   esp-open-sdk = import ./esp-open-sdk.nix {};
 in pkgs.stdenv.mkDerivation {
   name = "sming";
-  version = "3.8.0_ssl";
+  version = "3.8.1_nossl";
   src = pkgs.fetchFromGitHub {
     owner = "SmingHub";
     repo = "Sming";
-    rev = "3.8.0";
+    rev = "3.8.1";
     sha256 = "1bf2nyfb9vl4zwv8vj7aw6jalnb8vhn4hlsyr5azdqq04a0ws5wz";
     fetchSubmodules = true;
   };
