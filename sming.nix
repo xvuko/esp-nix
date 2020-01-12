@@ -10,7 +10,7 @@ in pkgs.stdenv.mkDerivation {
     owner = "SmingHub";
     repo = "Sming";
     rev = "3.8.1";
-    sha256 = "1bf2nyfb9vl4zwv8vj7aw6jalnb8vhn4hlsyr5azdqq04a0ws5wz";
+    sha256 = "1c3l4pkcbwwhq1478p6xh2hqfp1ml4pwdgg62vwk9xhcgjm0rbgy";
     fetchSubmodules = true;
   };
   ESP_HOME=esp-open-sdk;
