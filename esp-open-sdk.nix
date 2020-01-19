@@ -5,12 +5,6 @@ let
     pyserial
   ]); 
   crosstool_ng = import ./crostool-ng.nix {};
-  sdk = pkgs.fetchFromGitHub {
-    owner = "espressif";
-    repo = "ESP8266_NONOS_SDK";
-    rev = "61248df5f6";
-    sha256 = "175y9v0lpp1f89a1sghschs131r5wmqisphvdzr3y8yrqmx2dljs";
-  };
   sdk154 = pkgs.fetchurl {
     url = "http://bbs.espressif.com/download/file.php?id=1469";
     sha256 = "01pkshzm7a45v4sp8281nypsi0fmqcy07fr8ncbbg43rv55cf88h";
@@ -29,16 +23,12 @@ in pkgs.stdenvNoCC.mkDerivation {
       --replace '/bin/bash' '${pkgs.bash}/bin/bash'
     substituteInPlace esp-open-lwip/gen_misc.sh \
       --replace '/bin/bash' '${pkgs.bash}/bin/bash'
-    #sed -i '/^\(toolchain .*\) crosstool-NG\/.built$/d' Makefile
     sed -i 's%^\(toolchain .*\) crosstool-NG\/.built$%\1%' Makefile
     sed -i '/git clone.*NONOS_SDK/d' Makefile
     sed -i '/SDK_DIR.*git checkout/d' Makefile
 
     cp -vr ${crosstool_ng} ./xtensa-lx106-elf/
     chmod -R u+w ./xtensa-lx106-elf
-
-    #cp -vr ${sdk} ESP8266_NONOS_SDK-2.1.0-18-g61248df
-    #chmod -R u+w ESP8266_NONOS_SDK-2.1.0-18-g61248df
 
     cp -r ${sdk154} ESP8266_NONOS_SDK_V1.5.4_16_05_20.zip
   '';
@@ -51,6 +41,11 @@ in pkgs.stdenvNoCC.mkDerivation {
     cp -avr xtensa-lx106-elf $out/
     cp -avr esptool $out/
   '';
-  buildInputs = with pkgs; [ which gnumake autoconf automake libtool gperf flex bison texinfo gawk ncurses.dev expat python gnused git unzip bash help2man bzip2 binutils ];
+  buildInputs = with pkgs; [
+    which gnumake autoconf automake libtool gperf flex bison texinfo gawk
+    ncurses.dev expat python gnused git unzip bash help2man bzip2 binutils
+  ];
+
+  # https://unix.stackexchange.com/questions/356232/disabling-the-security-hardening-options-for-a-nix-shell-environment#367990
   hardeningDisable = [ "format" ];
 }

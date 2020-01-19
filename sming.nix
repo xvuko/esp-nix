@@ -17,11 +17,8 @@ in pkgs.stdenv.mkDerivation {
   buildPhase = ''
     pushd Sming
     export SMING_HOME=$(readlink -e ./)
-    set -x
-    ls -la
-    which make
+    # export ENABLE_SSL=1
     make
-    # ENABLE_SSL=1
     rm -r out
     popd
   '';
@@ -33,6 +30,11 @@ in pkgs.stdenv.mkDerivation {
     cp -avr tools/esptool2/esptool2 $out/bin/
     cp -avr tools/spiffy/spiffy $out/bin/
   '';
-  buildInputs = with pkgs; [ which gnumake autoconf automake libtool gperf flex bison texinfo gawk ncurses.dev expat python gnused git unzip bash help2man bzip2 binutils ];
+  buildInputs = with pkgs; [
+    which gnumake autoconf automake libtool gperf flex bison texinfo gawk
+    ncurses.dev expat python gnused git unzip bash help2man bzip2 binutils
+  ];
+
+  # https://unix.stackexchange.com/questions/356232/disabling-the-security-hardening-options-for-a-nix-shell-environment#367990
   hardeningDisable = [ "format" ];
 }
