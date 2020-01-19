@@ -6,7 +6,7 @@ with pkgs; let
     sha256 = "1cfdh7jvgg66x4xfbr1zsx7bgrcmj7y81l2wknfc7shdf69ybfax";
   };
 in pkgs.stdenv.mkDerivation {
-  name = "crostool-ng-esp8266";
+  name = "crosstool-ng-esp8266";
   version = "1.22.x";
   src = pkgs.fetchgit {
     url = "https://github.com/jcmvbkbc/crosstool-NG.git";

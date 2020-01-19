@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
-  crosstool_ng = import ./crostool-ng.nix {};
+  crosstool_ng = import ./crosstool-ng.nix {};
   esp-open-sdk = import ./esp-open-sdk.nix {};
 in pkgs.stdenv.mkDerivation {
   name = "sming";

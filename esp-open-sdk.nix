@@ -4,7 +4,7 @@ let
   python = pkgs.python2Full.withPackages (python-packages: with python-packages; [
     pyserial
   ]); 
-  crosstool_ng = import ./crostool-ng.nix {};
+  crosstool_ng = import ./crosstool-ng.nix {};
   sdk154 = pkgs.fetchurl {
     url = "http://bbs.espressif.com/download/file.php?id=1469";
     sha256 = "01pkshzm7a45v4sp8281nypsi0fmqcy07fr8ncbbg43rv55cf88h";
