@@ -1,40 +1,55 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {}, build_samples ? true }:
 
 let
-  crosstool_ng = import ./crosstool-ng.nix {};
   esp-open-sdk = import ./esp-open-sdk.nix {};
 in pkgs.stdenv.mkDerivation {
-  name = "sming";
-  version = "3.8.1_nossl";
+  name = "Sming-4.1.1-prebuild";
+
   src = pkgs.fetchFromGitHub {
     owner = "SmingHub";
     repo = "Sming";
-    rev = "3.8.1";
-    sha256 = "1c3l4pkcbwwhq1478p6xh2hqfp1ml4pwdgg62vwk9xhcgjm0rbgy";
+    rev = "4.1.1";
+    sha256 = "1wznjvafzksny0380lnxkqqcpf45j4rgq1y4pg6kg3b53zcgzlbg";
     fetchSubmodules = true;
   };
-  ESP_HOME=esp-open-sdk;
+
+  phases = [ "unpackPhase" "buildPhase" "installPhase" ];
+
+  BUILD_SAMPLES=build_samples;
+  ESP_HOME="${esp-open-sdk}";
   buildPhase = ''
-    pushd Sming
-    export SMING_HOME=$(readlink -e ./)
-    # export ENABLE_SSL=1
-    make
+    cd $NIX_BUILD_TOP
+    mv source Sming
+    cd Sming
+
+    # disable submodule update in makefile - it is done in fetchFromGithub
+    sed -i '/submodule update --init --force --recursive/d' Sming/build.mk
+    
+    export SMING_HOME=$(readlink -f Sming)
+
+    if [ -n "$BUILD_SAMPLES" ]
+    then
+
+    # build samples 
+    pushd samples/Basic_Blink
+    make 
+    make SMING_RELEASE=1
     rm -r out
     popd
+
+    pushd samples/Echo_Ssl
+    make 
+    make SMING_RELEASE=1
+    rm -r out
+    popd
+
+    fi
   '';
-  installPhase = ''
-    pwd
-    mkdir $out
-    cp -avr Sming $out
-    mkdir $out/bin
-    cp -avr tools/esptool2/esptool2 $out/bin/
-    cp -avr tools/spiffy/spiffy $out/bin/
-  '';
-  buildInputs = with pkgs; [
-    which gnumake autoconf automake libtool gperf flex bison texinfo gawk
-    ncurses.dev expat python gnused git unzip bash help2man bzip2 binutils
+  nativeBuildInputs = with pkgs; [
+    coreutils which gnumake gnused bash binutils git python3
   ];
 
-  # https://unix.stackexchange.com/questions/356232/disabling-the-security-hardening-options-for-a-nix-shell-environment#367990
-  hardeningDisable = [ "format" ];
+  installPhase = ''
+    cp -r /build/Sming/ $out
+  '';
 }

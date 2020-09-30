@@ -5,9 +5,11 @@ let
     pyserial
   ]); 
   crosstool_ng = import ./crosstool-ng.nix {};
-  sdk154 = pkgs.fetchurl {
-    url = "http://bbs.espressif.com/download/file.php?id=1469";
-    sha256 = "01pkshzm7a45v4sp8281nypsi0fmqcy07fr8ncbbg43rv55cf88h";
+  sdk = pkgs.fetchFromGitHub {
+    owner = "espressif";
+    repo = "ESP8266_NONOS_SDK";
+    rev = "61248df5f6";
+    sha256 = "175y9v0lpp1f89a1sghschs131r5wmqisphvdzr3y8yrqmx2dljs";
   };
 in pkgs.stdenvNoCC.mkDerivation {
   name = "esp-open-sdk";
@@ -30,10 +32,11 @@ in pkgs.stdenvNoCC.mkDerivation {
     cp -vr ${crosstool_ng} ./xtensa-lx106-elf/
     chmod -R u+w ./xtensa-lx106-elf
 
-    cp -r ${sdk154} ESP8266_NONOS_SDK_V1.5.4_16_05_20.zip
+    cp -vr ${sdk} ESP8266_NONOS_SDK-2.1.0-18-g61248df
+    chmod -R u+w ESP8266_NONOS_SDK-2.1.0-18-g61248df
   '';
   buildPhase = ''
-    make VENDOR_SDK=1.5.4 STANDALONE=y
+    make STANDALONE=y
   '';
   installPhase = ''
     mkdir -p $out
