@@ -6,4 +6,6 @@ rec {
   esptool2 = import ./esptool2.nix { inherit pkgs; };
   crosstool-ng = import ./crosstool-ng.nix { inherit pkgs; };
   flash = import ./flash.nix { inherit sming pkgs; };
+  init = import ./initialize.nix { inherit sming pkgs; sdk = esp-open-sdk; };
+  spiffs = import ./spiffs.nix { inherit sming pkgs; };
 }

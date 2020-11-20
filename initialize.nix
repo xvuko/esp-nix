@@ -35,6 +35,6 @@ in pkgs.writeScriptBin "initialize" ''
       '0x1fc000', init
     ]
 
-    run([python, esptool, *fargs, write_flash, *iargs])
+    run([python, esptool, *fargs, 'write_flash', *iargs])
 ''
 
