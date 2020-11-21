@@ -8,4 +8,5 @@ rec {
   flash = import ./flash.nix { inherit sming pkgs; };
   init = import ./initialize.nix { inherit sming pkgs; sdk = esp-open-sdk; };
   spiffs = import ./spiffs.nix { inherit sming pkgs; };
+  buildSmingApplication = pkgs.lib.makeOverridable pkgs.callPackage ./buildSmingApplication.nix { inherit esp-open-sdk sming; };
 }
