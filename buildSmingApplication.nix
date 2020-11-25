@@ -2,7 +2,7 @@
 
 { name ? "${attrs.pname}-${attrs.version}", src, release ? false, ... } @ attrs:
 
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation ({
 
   inherit name src;
   phases = ["unpackPhase" "prepareSming" "buildPhase" "installPhase"];
@@ -32,4 +32,4 @@ stdenvNoCC.mkDerivation {
       cp -r out/Esp8266/debug/firmware $out/firmware
     fi
   '';
-}
+} // attrs)
