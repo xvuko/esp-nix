@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation ({
   ESP_HOME = esp-open-sdk;
 
   prepareSming = ''
-    cp -r ${sming} $NIX_BUILD_TOP/Sming
+    cp -ra ${sming} $NIX_BUILD_TOP/Sming
     chmod +w -R $NIX_BUILD_TOP/Sming
     export SMING_HOME=$(readlink -f $NIX_BUILD_TOP/Sming/Sming)
   '' + (builtins.concatStringsSep "\n" (map (c: "rsync -a ${c}/ $NIX_BUILD_TOP/Sming/") components)) + "\nchmod +w -R $NIX_BUILD_TOP/Sming\n";
