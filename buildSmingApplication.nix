@@ -1,6 +1,6 @@
-{ stdenvNoCC, python3, git, gnused, esp-open-sdk, sming }:
+{ stdenvNoCC, python3, git, gnused, esp-open-sdk, sming, rsync }:
 
-{ name ? "${attrs.pname}-${attrs.version}", src, release ? false, ... } @ attrs:
+{ name ? "${attrs.pname}-${attrs.version}", src, components ? [], release ? false, ... } @ attrs:
 
 stdenvNoCC.mkDerivation ({
 
@@ -13,7 +13,7 @@ stdenvNoCC.mkDerivation ({
     cp -r ${sming} $NIX_BUILD_TOP/Sming
     chmod +w -R $NIX_BUILD_TOP/Sming
     export SMING_HOME=$(readlink -f $NIX_BUILD_TOP/Sming/Sming)
-  '';
+  '' + (builtins.concatStringsSep "\n" (map (c: "rsync -a ${c}/ $NIX_BUILD_TOP/Sming/") components)) + "\nchmod +w -R $NIX_BUILD_TOP/Sming\n";
   
   buildPhase = ''
     make
@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation ({
 
   SMING_RELEASE = if release then "1" else "";
 
-  buildInputs = [ python3 git gnused ];
+  buildInputs = [ python3 git gnused rsync];
 
   installPhase = ''
     mkdir -p $out

@@ -9,4 +9,5 @@ rec {
   init = import ./initialize.nix { inherit sming pkgs; sdk = esp-open-sdk; };
   spiffs = import ./spiffs.nix { inherit sming pkgs; };
   buildSmingApplication = pkgs.lib.makeOverridable pkgs.callPackage ./buildSmingApplication.nix { inherit esp-open-sdk sming; };
+  buildSmingComponent = pkgs.lib.makeOverridable pkgs.callPackage ./buildSmingComponent.nix { inherit esp-open-sdk sming; };
 }

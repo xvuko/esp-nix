@@ -26,31 +26,11 @@ Example nix build file::
         sha256 = [...];
       }) { inherit pkgs; };
     in
-    pkgs.stdenvNoCC.mkDerivation {
-    
+    esp.buildSmingApplication {
       name = [...];
-      phases = ["unpackPhase" "buildPhase" "installPhase"];
       src = ./.;
     
-      ESP_HOME = esp.esp-open-sdk;
       SMING_RELEASE = "1";
-    
-      buildPhase = ''
-        cp -r ${esp.sming} $NIX_BUILD_TOP/Sming
-        chmod +w -R $NIX_BUILD_TOP/Sming
-        export SMING_HOME=$(readlink -f $NIX_BUILD_TOP/Sming/Sming)
-    
-        make 
-      '';
-    
-      buildInputs = [ pkgs.python3 ];
-    
-      installPhase = ''
-        mkdir -p $out
-        cp -r out/Esp8266/release/firmware $out/firmware
-        mkdir -p $out/bin/
-        ln -s ${esp.flash}/bin/flash $out/bin/flash
-      '';
     }
 
 Library caching
