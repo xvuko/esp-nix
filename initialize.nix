@@ -21,7 +21,7 @@ in pkgs.writeScriptBin "initialize" ''
 
         
     python = '${python}/bin/python'
-    esptool = '${sming}/Sming/Arch/Esp8266/Components/esptool/esptool/esptool.py'
+    esptool = '${sming}/Sming/Components/esptool/esptool/esptool.py'
 
     sdk = Path('${sdk}').joinpath('sdk')
     blank = sdk.joinpath('bin', 'blank.bin')

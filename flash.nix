@@ -15,7 +15,7 @@ in pkgs.writeScriptBin "flash" ''
     args = parser.parse_args()
     
     python = '${python}/bin/python'
-    esptool = '${sming}/Sming/Arch/Esp8266/Components/esptool/esptool/esptool.py'
+    esptool = '${sming}/Sming/Components/esptool/esptool/esptool.py'
     fw = Path(__file__).parent.parent.joinpath('firmware').absolute()
 
     address = "0x100000"

@@ -3,13 +3,13 @@
 let
   esp-open-sdk = import ./esp-open-sdk.nix {};
 in pkgs.stdenv.mkDerivation {
-  name = "Sming-4.1.1-prebuild";
+  name = "Sming-4.3.0-prebuild";
 
   src = pkgs.fetchFromGitHub {
     owner = "SmingHub";
     repo = "Sming";
-    rev = "4.1.1";
-    sha256 = "1wznjvafzksny0380lnxkqqcpf45j4rgq1y4pg6kg3b53zcgzlbg";
+    rev = "4.3.0";
+    sha256 = "174w20vi135xmv7szz5m6y33ialz7z5izvnrjkg6qmfsrnn8grwj";
     fetchSubmodules = true;
   };
 

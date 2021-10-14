@@ -43,9 +43,9 @@ in pkgs.stdenv.mkDerivation {
       url = "https://ftp.gnu.org/gnu/mpfr/mpfr-3.1.3.tar.xz";
       sha256 = "05jaa5z78lvrayld09nyr0v27c1m5dm9l7kr85v2bj4jv65s0db8";
     }{
-      name = "isl-0.14.tar.xz";
-      url = "http://isl.gforge.inria.fr/isl-0.14.tar.xz";
-      sha256 = "00zz0dcxvbna2fqqqv37sqlkqpffb2js47q7qy7p184xh414y15i";
+      name = "isl-0.14.tar.bz2";
+      url = "https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.14.tar.bz2";
+      sha256 = "0dlg4b85nw4w534525h0fvb7yhb8i4am8kskhmm0ym7qabzh4g3y";
     }{
       name = "cloog-0.18.4.tar.gz";
       url = "http://bastoul.net/cloog/pages/download/cloog-0.18.4.tar.gz";

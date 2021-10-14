@@ -13,6 +13,7 @@ To keep this build system simple and flexible whole Sming directory must be
 copied for each build. This could be optimized by linking source code and
 copying only build directories.
 
+
 Usage
 -----
 Example nix build file::
@@ -43,3 +44,9 @@ this file with other libraries / compilation options you might want to add
 additional build instructions.
 
 .. _sming.nix: sming.nix
+
+TODO
+----
+- move spejsiot related tooling into `spejsiot`_ repository
+
+.. _spejsiot: https://gist.github.com/thpham/0cccfab10936979a78de776c87ba906a

@@ -38,7 +38,7 @@ in pkgs.writeScriptBin "download-spiffs" ''
         run([spiffy, str(size), files, fs])
         
         python = '${python}/bin/python'
-        esptool = '${sming}/Sming/Arch/Esp8266/Components/esptool/esptool/esptool.py'
+        esptool = '${sming}/Sming/Components/esptool/esptool/esptool.py'
         fargs = [
             '-p', args.serial, '-b', '115200', 'write_flash'
         ]
