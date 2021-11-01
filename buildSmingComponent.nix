@@ -1,4 +1,4 @@
-{ stdenvNoCC, python3, git, esp-open-sdk, sming, findutils, coreutils, gnumake }:
+{ stdenvNoCC, python3, git, esp-sdk, sming, findutils, coreutils, gnumake }:
 
 {name, src, preBuild ? null}: stdenvNoCC.mkDerivation {
   name = "sming-component-${name}";
@@ -6,7 +6,7 @@
 
   inherit preBuild src;
 
-  ESP_HOME="${esp-open-sdk}";
+  ESP_HOME="${esp-sdk}";
 
   unpackPhase = ''
     cp -ra ${sming} Sming

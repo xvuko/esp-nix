@@ -1,4 +1,4 @@
-{ stdenvNoCC, python3, git, gnused, esp-open-sdk, sming, rsync }:
+{ stdenvNoCC, python3, git, gnused, esp-sdk, sming, rsync }:
 
 { name ? "${attrs.pname}-${attrs.version}", src, components ? [], release ? false, ... } @ attrs:
 
@@ -7,7 +7,7 @@ stdenvNoCC.mkDerivation ({
   inherit name src;
   phases = ["unpackPhase" "prepareSming" "buildPhase" "installPhase"];
 
-  ESP_HOME = esp-open-sdk;
+  ESP_HOME = esp-sdk;
 
   prepareSming = ''
     cp -ra ${sming} $NIX_BUILD_TOP/Sming

@@ -1,8 +1,6 @@
-{ pkgs ? import <nixpkgs> {}, build_samples ? true }:
+{ pkgs ? import <nixpkgs> {}, esp-sdk ? import ./esp-open-sdk.nix {},  build_samples ? true }:
 
-let
-  esp-open-sdk = import ./esp-open-sdk.nix {};
-in pkgs.stdenv.mkDerivation {
+pkgs.stdenv.mkDerivation {
   name = "Sming-4.3.0-prebuild";
 
   src = pkgs.fetchFromGitHub {
@@ -16,7 +14,7 @@ in pkgs.stdenv.mkDerivation {
   phases = [ "unpackPhase" "buildPhase" "installPhase" ];
 
   BUILD_SAMPLES=build_samples;
-  ESP_HOME="${esp-open-sdk}";
+  ESP_HOME="${esp-sdk}";
   buildPhase = ''
     cd $NIX_BUILD_TOP
     mv source Sming
