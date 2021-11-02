@@ -6,8 +6,8 @@ pkgs.stdenv.mkDerivation {
   src = pkgs.fetchFromGitHub {
     owner = "SmingHub";
     repo = "Sming";
-    rev = "4.3.0";
-    sha256 = "174w20vi135xmv7szz5m6y33ialz7z5izvnrjkg6qmfsrnn8grwj";
+    rev = "4.4.1";
+    sha256 = "1y51k3mwjxds4vna3wara4p672ngrf40hjy71sr1rk6jmbqb3hhv";
     fetchSubmodules = true;
   };
 
