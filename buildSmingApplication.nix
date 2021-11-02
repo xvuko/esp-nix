@@ -17,6 +17,7 @@ stdenvNoCC.mkDerivation ({
   
   buildPhase = ''
     make
+    make flash -n | grep esptool.py > flash_cmd.sh
   '';
 
   SMING_RELEASE = if release then "1" else "";
@@ -31,5 +32,6 @@ stdenvNoCC.mkDerivation ({
     else
       cp -r out/Esp8266/debug/firmware $out/firmware
     fi
+    cp flash_cmd.sh $out/
   '';
 } // attrs)
